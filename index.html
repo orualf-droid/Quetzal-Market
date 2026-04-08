@@ -93,6 +93,12 @@
             box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6);
         }
 
+        .whatsapp-btn img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+
         /* Navegación */
         nav {
             width: 100%;
@@ -757,14 +763,16 @@
     <!-- Header con Logo Quetzal Market -->
     <header>
         <div class="logo-container">
-            <img src="images/logo-quetzal-market.png.png" alt="Quetzal Market" width="100" height="100">
+            <!-- CORREGIDO: Ruta de imagen -->
+            <img src="images/logo-quetzal-market.png" alt="Quetzal Market" class="logo-img">
             <div class="logo-text-header">
                 <h1>QUETZAL MARKET</h1>
                 <span>Conectamos Negocios, Crecemos Juntos</span>
             </div>
         </div>
         <a href="https://wa.me/50242595842" class="whatsapp-btn" target="_blank">
-            <img src="images/WhatsApp.jpg" alt="Quetzal Market" width="25" height="25"> +502 42595842
+            <!-- CORREGIDO: Ruta de imagen WhatsApp -->
+            <img src="images/WhatsApp.jpg" alt="WhatsApp"> +502 42595842
         </a>
     </header>
 
@@ -783,7 +791,8 @@
 
     <!-- Logo Showcase -->
     <div class="logo-showcase" id="inicio">
-        <img src="images/logo-quetzal-market.png.png" alt="Quetzal Market" width="100" height="100">
+        <!-- CORREGIDO: Ruta de imagen -->
+        <img src="images/logo-quetzal-market.png" alt="Quetzal Market">
     </div>
 
     <!-- Carrusel 3D con 10 items -->
@@ -796,7 +805,7 @@
                 
                 <!-- Item 1 -->
                 <a href="https://ejemplo.com/plan-basico" class="carousel-item active" target="_blank" data-index="0">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400" alt="🛒 Tienda de Abarrotes">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400" alt="Tienda de Abarrotes">
                     <div class="info">
                         <div class="price">
                             Q70.00
@@ -807,7 +816,7 @@
 
                 <!-- Item 2 -->
                 <a href="https://ejemplo.com/plan-empresarial" class="carousel-item next-1" target="_blank" data-index="1">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400" alt="🍽️ Restaurante / Comedor">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400" alt="Restaurante / Comedor">
                     <div class="info">
                         <div class="price">
                             Q85.00
@@ -818,18 +827,18 @@
 
                 <!-- Item 3 -->
                 <a href="https://ejemplo.com/plan-premium" class="carousel-item next-2" target="_blank" data-index="2">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" alt="🥖 Panadería">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" alt="Panadería">
                     <div class="info">
                         <div class="price">
                             Q85.00
-                            <small>ANUAL / NO INCLUYE I.G.V.</small>
+                            <small>Panadería y repostería</small>
                         </div>
                     </div>
                 </a>
 
                 <!-- Item 4 -->
                 <a href="https://ejemplo.com/plan-ecommerce" class="carousel-item hidden" target="_blank" data-index="3">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400" alt="💊 Farmacia">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400" alt="Farmacia">
                     <div class="info">
                         <div class="price">
                             Q65.00
@@ -840,7 +849,7 @@
 
                 <!-- Item 5 -->
                 <a href="https://ejemplo.com/plan-corporativo" class="carousel-item hidden" target="_blank" data-index="4">
-                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=400" alt="👕 Ropa y Calzado">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=400" alt="Ropa y Calzado">
                     <div class="info">
                         <div class="price">
                             Q85.00
@@ -851,7 +860,7 @@
 
                 <!-- Item 6 -->
                 <a href="https://ejemplo.com/plan-profesional" class="carousel-item hidden" target="_blank" data-index="5">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400" alt="🔧 Ferretería">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400" alt="Ferretería">
                     <div class="info">
                         <div class="price">
                             Q95.00
@@ -862,7 +871,7 @@
 
                 <!-- Item 7 -->
                 <a href="https://ejemplo.com/plan-negocios" class="carousel-item hidden" target="_blank" data-index="6">
-                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400" alt="📱 Tecnología / Celulares">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400" alt="Tecnología / Celulares">
                     <div class="info">
                         <div class="price">
                             Q75.00
@@ -873,7 +882,7 @@
 
                 <!-- Item 8 -->
                 <a href="https://ejemplo.com/plan-startup" class="carousel-item hidden" target="_blank" data-index="7">
-                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400" alt="💇‍♂️ Barbería / Salón de belleza">
+                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400" alt="Barbería / Salón de belleza">
                     <div class="info">
                         <div class="price">
                             Q60.00
@@ -884,7 +893,7 @@
 
                 <!-- Item 9 -->
                 <a href="https://ejemplo.com/plan-portafolio" class="carousel-item hidden" target="_blank" data-index="8">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="🚕 Transporte / Servicios">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Transporte / Servicios">
                     <div class="info">
                         <div class="price">
                             Q55.00
@@ -895,7 +904,7 @@
 
                 <!-- Item 10 -->
                 <a href="https://ejemplo.com/plan-ilimitado" class="carousel-item prev-2" target="_blank" data-index="9">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" alt="🧾 Servicios Profesionales">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" alt="Servicios Profesionales">
                     <div class="info">
                         <div class="price">
                             Q120.00
@@ -967,16 +976,16 @@
                 <label for="plan">Plan de interés</label>
                 <select id="plan" name="plan">
                     <option value="">Selecciona un plan</option>
-                    <option value="basico">1. Plan Básico - $70.00</option>
-                    <option value="empresarial">2. Plan Empresarial - $85.00</option>
-                    <option value="premium">3. Plan Premium - $85.00</option>
-                    <option value="ecommerce">4. Plan E-commerce - $65.00</option>
-                    <option value="corporativo">5. Plan Corporativo - $85.00</option>
-                    <option value="profesional">6. Plan Profesional - $95.00</option>
-                    <option value="negocios">7. Plan Negocios - $75.00</option>
-                    <option value="startup">8. Plan Startup - $60.00</option>
-                    <option value="portafolio">9. Plan Portafolio - $55.00</option>
-                    <option value="ilimitado">10. Plan Ilimitado - $120.00</option>
+                    <option value="basico">1. Tienda de Abarrotes - Q70.00</option>
+                    <option value="empresarial">2. Restaurante / Comedor - Q85.00</option>
+                    <option value="premium">3. Panadería - Q85.00</option>
+                    <option value="ecommerce">4. Farmacia - Q65.00</option>
+                    <option value="corporativo">5. Ropa y Calzado - Q85.00</option>
+                    <option value="profesional">6. Ferretería - Q95.00</option>
+                    <option value="negocios">7. Tecnología / Celulares - Q75.00</option>
+                    <option value="startup">8. Barbería / Salón - Q60.00</option>
+                    <option value="portafolio">9. Transporte / Servicios - Q55.00</option>
+                    <option value="ilimitado">10. Servicios Profesionales - Q120.00</option>
                 </select>
             </div>
             
@@ -1016,7 +1025,8 @@
             <div class="footer-section">
                 <h4>Contacto</h4>
                 <p>📞 <a href="https://wa.me/50242595842" style="display: inline; color: #d4af37;">+502 42595842</a></p>
-                <p>📧 info@quetzalmarket.com</p>
+                <!-- CORREGIDO: Tu correo electrónico -->
+                <p>📧 <a href="mailto:mauromarroquin@hotmail.com" style="display: inline; color: #d4af37;">mauromarroquin@hotmail.com</a></p>
                 <p>📍 Guatemala</p>
             </div>
         </div>
