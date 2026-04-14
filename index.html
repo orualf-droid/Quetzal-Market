@@ -57,10 +57,10 @@
             50% { transform: translate(-5%, -5%) rotate(5deg); }
         }
 
-        /* Header Premium con Logo SIEMPRE VISIBLE - DE SECUNDARIA 04 */
+        /* Header Premium - YA NO ES STICKY/FIJO */
         header {
-            position: sticky;
-            top: 0;
+            /* ELIMINADO: position: sticky y top: 0 */
+            width: 100%;
             z-index: 1000;
             background: linear-gradient(180deg, rgba(10, 22, 40, 0.98) 0%, rgba(10, 22, 40, 0.9) 100%);
             backdrop-filter: blur(20px);
@@ -573,6 +573,25 @@
             display: block;
         }
 
+        /* NUMERACIÓN EN LA ESQUINA SUPERIOR IZQUIERDA DE CADA ITEM */
+        .carousel-item .number-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
         .carousel-item .info {
             padding: 12px;
             text-align: center;
@@ -670,13 +689,22 @@
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
         }
 
-        /* Dots numerados */
+        /* Dots numerados - MEJORADOS PARA MÓVIL */
         .dots {
             display: flex;
             gap: 8px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* CAMBIO: nowrap para forzar una sola fila */
             justify-content: center;
-            max-width: 500px;
+            max-width: 100%;
+            overflow-x: auto; /* Permite scroll horizontal si es necesario */
+            padding: 5px;
+            -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+        }
+
+        /* Ocultar scrollbar en los dots pero mantener funcionalidad */
+        .dots::-webkit-scrollbar {
+            height: 0;
+            background: transparent;
         }
 
         .dot {
@@ -695,6 +723,7 @@
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
+            flex-shrink: 0; /* IMPORTANTE: Evita que se encojan */
         }
 
         .dot::before {
@@ -1013,6 +1042,15 @@
                 font-size: 9px;
             }
 
+            /* NUMERACIÓN MÁS PEQUEÑA EN MÓVIL */
+            .carousel-item .number-badge {
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+                top: 8px;
+                left: 8px;
+            }
+
             .carousel-item.prev-1 {
                 transform: translateX(-140px) translateZ(0) rotateY(20deg) scale(0.8);
             }
@@ -1030,9 +1068,10 @@
                 transform: translateZ(100px) scale(1);
             }
 
+            /* DOTS MÁS PEQUEÑOS EN MÓVIL PARA QUE QUEPAN */
             .dots {
                 gap: 6px;
-                max-width: 280px;
+                padding: 5px 10px;
             }
 
             .dot {
@@ -1080,6 +1119,13 @@
                 font-size: 18px;
             }
 
+            /* NUMERACIÓN AÚN MÁS PEQUEÑA EN PANTALLAS MUY PEQUEÑAS */
+            .carousel-item .number-badge {
+                width: 22px;
+                height: 22px;
+                font-size: 10px;
+            }
+
             .carousel-item.prev-1 {
                 transform: translateX(-110px) translateZ(0) rotateY(20deg) scale(0.75);
             }
@@ -1088,9 +1134,10 @@
                 transform: translateX(110px) translateZ(0) rotateY(-20deg) scale(0.75);
             }
 
+            /* DOTS AÚN MÁS PEQUEÑOS */
             .dot {
-                width: 26px;
-                height: 26px;
+                width: 24px;
+                height: 24px;
                 font-size: 10px;
             }
         }
@@ -1118,12 +1165,12 @@
     <!-- Fondo animado -->
     <div class="bg-animation"></div>
 
-    <!-- Header Premium - DE SECUNDARIA 04 -->
+    <!-- Header Premium - YA NO ES STICKY -->
     <header>
         <div class="header-top">
             <div class="logo-section">
                 <div class="logo-wrapper">
-                    <img src="images/logo-quetzal-market.png" alt="Quetzal Market Logo" class="logo-img">
+                    <img src="images/logo-quetzal-market.png" alt="Quetzal Market Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/80x80/d4af37/0a1628?text=QM'; this.onerror=null;">
                 </div>
                 <div class="brand-text">
                     <h1>Quetzal Market</h1>
@@ -1138,7 +1185,7 @@
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
-                <a href="https://wa.me/50242595842" class="whatsapp-btn" target="_blank">
+                <a href="https://wa.me/50242595842" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-whatsapp"></i> +502 42595842
                 </a>
             </div>
@@ -1163,7 +1210,7 @@
                     <span>En línea ahora</span>
                 </div>
             </div>
-            <div class="chat-messages">
+            <div class="chat-messages" id="chatMessages">
                 <div class="message bot">
                     <div class="message-content">
                         ¡Hola! ¿En qué puedo ayudarte hoy? 😊
@@ -1171,8 +1218,8 @@
                 </div>
             </div>
             <div class="chat-input">
-                <input type="text" placeholder="Escribe tu mensaje...">
-                <button><i class="fas fa-paper-plane"></i></button>
+                <input type="text" id="chatInput" placeholder="Escribe tu mensaje..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
         <button class="chat-btn" onclick="toggleChat()">
@@ -1206,7 +1253,7 @@
         </div>
     </section>
 
-    <!-- Carrusel 3D - DE INDEX ORIGINAL -->
+    <!-- Carrusel 3D - CON NUMERACIÓN EN CADA ITEM -->
     <section class="carousel-section" id="planes">
         <h2 style="color: var(--gold); margin-bottom: 10px; font-size: 32px; font-family: 'Playfair Display', serif;">Nuestros Planes</h2>
         <p style="color: rgba(255,255,255,0.6); margin-bottom: 30px;">Selecciona el plan perfecto para tu negocio</p>
@@ -1215,8 +1262,9 @@
             <div class="carousel" id="carousel">
                 
                 <!-- Item 1 -->
-                <a href="tienda-abarroterias.html" class="carousel-item active" target="_blank" data-index="0">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400" alt="Tienda de Abarrotes">
+                <a href="tienda-abarroterias.html" class="carousel-item active" data-index="0">
+                    <span class="number-badge">1</span>
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400" alt="Tienda de Abarrotes" loading="lazy">
                     <div class="info">
                         <div class="price">
                             Q70.00
@@ -1226,8 +1274,9 @@
                 </a>
 
                 <!-- Item 2 -->
-                <a href="restaurante-comedor.html" class="carousel-item next-1" target="_blank" data-index="1">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400" alt="Restaurante / Comedor">
+                <a href="restaurante-comedor.html" class="carousel-item next-1" data-index="1">
+                    <span class="number-badge">2</span>
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400" alt="Restaurante / Comedor" loading="lazy">
                     <div class="info">
                         <div class="price">
                             Q85.00
@@ -1237,8 +1286,9 @@
                 </a>
 
                 <!-- Item 3 -->
-                <a href="Panaderias.html" class="carousel-item next-2" target="_blank" data-index="2">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" alt="Panadería">
+                <a href="panaderias.html" class="carousel-item next-2" data-index="2">
+                    <span class="number-badge">3</span>
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" alt="Panadería" loading="lazy">
                     <div class="info">
                         <div class="price">
                             Q85.00
@@ -1248,8 +1298,9 @@
                 </a>
 
                 <!-- Item 4 -->
-                <a href="farmacias.html" class="carousel-item hidden" target="_blank" data-index="3">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400" alt="Farmacia">
+                <a href="farmacias.html" class="carousel-item hidden" data-index="3">
+                    <span class="number-badge">4</span>
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400" alt="Farmacia" loading="lazy">
                     <div class="info">
                         <div class="price">
                             Q65.00
@@ -1259,8 +1310,9 @@
                 </a>
 
                 <!-- Item 5 -->
-                <a href="ropa-calzado.html" class="carousel-item hidden" target="_blank" data-index="4">
-                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=400" alt="Ropa y Calzado">
+                <a href="ropa-calzado.html" class="carousel-item hidden" data-index="4">
+                    <span class="number-badge">5</span>
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=400" alt="Ropa y Calzado" loading="lazy">
                     <div class="info">
                         <div class="price">
                             Q85.00
@@ -1270,8 +1322,9 @@
                 </a>
 
                 <!-- Item 6 -->
-                <a href="ferreterias.html" class="carousel-item hidden" target="_blank" data-index="5">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400" alt="Ferretería">
+                <a href="ferreterias.html" class="carousel-item hidden" data-index="5">
+                    <span class="number-badge">6</span>
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400" alt="Ferretería" loading="lazy">
                     <div class="info">
                         <div class="price">
                             Q95.00
@@ -1281,8 +1334,9 @@
                 </a>
 
                 <!-- Item 7 -->
-                <a href="tecnologia-celulares.html" class="carousel-item hidden" target="_blank" data-index="6">
-                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400" alt="Tecnología / Celulares">
+                <a href="tecnologia-celulares.html" class="carousel-item hidden" data-index="6">
+                    <span class="number-badge">7</span>
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400" alt="Tecnología / Celulares" loading="lazy">
                     <div class="info">
                         <div class="price">
                             Q75.00
@@ -1292,8 +1346,9 @@
                 </a>
 
                 <!-- Item 8 -->
-                <a href="barberia-salon-belleza.html" class="carousel-item hidden" target="_blank" data-index="7">
-                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400" alt="Barbería / Salón de belleza">
+                <a href="barberia-salon-belleza.html" class="carousel-item hidden" data-index="7">
+                    <span class="number-badge">8</span>
+                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400" alt="Barbería / Salón de belleza" loading="lazy">
                     <div class="info">
                         <div class="price">
                             Q60.00
@@ -1303,8 +1358,9 @@
                 </a>
 
                 <!-- Item 9 -->
-                <a href="transporte-servicios.html" class="carousel-item hidden" target="_blank" data-index="8">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Transporte / Servicios">
+                <a href="transporte-servicios.html" class="carousel-item hidden" data-index="8">
+                    <span class="number-badge">9</span>
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Transporte / Servicios" loading="lazy">
                     <div class="info">
                         <div class="price">
                             Q55.00
@@ -1314,8 +1370,9 @@
                 </a>
 
                 <!-- Item 10 -->
-                <a href="servicios-profesionales.html" class="carousel-item prev-2" target="_blank" data-index="9">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" alt="Servicios Profesionales">
+                <a href="servicios-profesionales.html" class="carousel-item prev-2" data-index="9">
+                    <span class="number-badge">10</span>
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" alt="Servicios Profesionales" loading="lazy">
                     <div class="info">
                         <div class="price">
                             Q120.00
@@ -1327,11 +1384,11 @@
             </div>
         </div>
 
-        <!-- Controles -->
+        <!-- Controles - DOTS OPTIMIZADOS PARA UNA SOLA FILA -->
         <div class="controls">
-            <button class="btn" onclick="moveCarousel(-1)">❮</button>
+            <button class="btn" onclick="moveCarousel(-1)" aria-label="Anterior">❮</button>
             <div class="dots" id="dots"></div>
-            <button class="btn" onclick="moveCarousel(1)">❯</button>
+            <button class="btn" onclick="moveCarousel(1)" aria-label="Siguiente">❯</button>
         </div>
     </section>
 
@@ -1364,17 +1421,46 @@
         </div>
     </section>
 
+    <!-- Sección FAQ -->
+    <section class="info-section" id="faq">
+        <h2>Preguntas Frecuentes</h2>
+        <p>Resolvemos tus dudas más comunes</p>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">❓</div>
+                <h3>¿Cuánto tiempo tarda?</h3>
+                <p>Entre 3 a 7 días hábiles dependiendo del plan seleccionado y la complejidad del proyecto.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💳</div>
+                <h3>¿Qué métodos de pago aceptan?</h3>
+                <p>Aceptamos transferencia bancaria, depósito y pago en efectivo en nuestras oficinas.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔄</div>
+                <h3>¿Incluyen mantenimiento?</h3>
+                <p>Sí, todos nuestros planes incluyen soporte técnico y actualizaciones mensuales.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌐</div>
+                <h3>¿Incluyen dominio?</h3>
+                <p>El dominio .com o .gt tiene un costo adicional anual de Q150.00.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Formulario de contacto -->
     <section class="contact-section" id="contacto">
         <h2>Contáctanos</h2>
-        <form onsubmit="handleSubmit(event)">
+        <form onsubmit="handleSubmit(event)" id="contactForm">
             <div class="form-group">
-                <label for="nombre">Nombre completo</label>
+                <label for="nombre">Nombre completo *</label>
                 <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre">
             </div>
             
             <div class="form-group">
-                <label for="email">Correo electrónico</label>
+                <label for="email">Correo electrónico *</label>
                 <input type="email" id="email" name="email" required placeholder="tu@email.com">
             </div>
             
@@ -1387,16 +1473,16 @@
                 <label for="plan">Plan de interés</label>
                 <select id="plan" name="plan">
                     <option value="">Selecciona un plan</option>
-                    <option value="basico">1. Tienda de Abarrotes - Q70.00</option>
-                    <option value="empresarial">2. Restaurante / Comedor - Q85.00</option>
-                    <option value="premium">3. Panadería - Q85.00</option>
-                    <option value="ecommerce">4. Farmacia - Q65.00</option>
-                    <option value="corporativo">5. Ropa y Calzado - Q85.00</option>
-                    <option value="profesional">6. Ferretería - Q95.00</option>
-                    <option value="negocios">7. Tecnología / Celulares - Q75.00</option>
-                    <option value="startup">8. Barbería / Salón - Q60.00</option>
-                    <option value="portafolio">9. Transporte / Servicios - Q55.00</option>
-                    <option value="ilimitado">10. Servicios Profesionales - Q120.00</option>
+                    <option value="abarrotes">1. Tienda de Abarrotes - Q70.00</option>
+                    <option value="restaurante">2. Restaurante / Comedor - Q85.00</option>
+                    <option value="panaderia">3. Panadería - Q85.00</option>
+                    <option value="farmacia">4. Farmacia - Q65.00</option>
+                    <option value="ropa">5. Ropa y Calzado - Q85.00</option>
+                    <option value="ferreteria">6. Ferretería - Q95.00</option>
+                    <option value="tecnologia">7. Tecnología / Celulares - Q75.00</option>
+                    <option value="barberia">8. Barbería / Salón - Q60.00</option>
+                    <option value="transporte">9. Transporte / Servicios - Q55.00</option>
+                    <option value="profesional">10. Servicios Profesionales - Q120.00</option>
                 </select>
             </div>
             
@@ -1414,28 +1500,28 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Servicios</h4>
-                <a href="#">Diseño Web</a>
-                <a href="#">Tiendas Online</a>
-                <a href="#">Marketing Digital</a>
-                <a href="#">SEO</a>
+                <a href="#planes">Diseño Web</a>
+                <a href="#planes">Tiendas Online</a>
+                <a href="#contacto">Marketing Digital</a>
+                <a href="#contacto">SEO</a>
             </div>
             <div class="footer-section">
                 <h4>Empresa</h4>
-                <a href="#">Sobre Nosotros</a>
-                <a href="#">Equipo</a>
-                <a href="#">Carreras</a>
+                <a href="#nosotros">Sobre Nosotros</a>
+                <a href="#contacto">Equipo</a>
+                <a href="#contacto">Carreras</a>
                 <a href="#">Blog</a>
             </div>
             <div class="footer-section">
                 <h4>Soporte</h4>
-                <a href="#">Centro de Ayuda</a>
-                <a href="#">Tutoriales</a>
-                <a href="https://wa.me/50242595842">WhatsApp</a>
-                <a href="#">FAQ</a>
+                <a href="#faq">Centro de Ayuda</a>
+                <a href="#faq">Tutoriales</a>
+                <a href="https://wa.me/50242595842" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a href="#faq">FAQ</a>
             </div>
             <div class="footer-section">
                 <h4>Contacto</h4>
-                <p>📞 <a href="https://wa.me/50242595842" style="display: inline; color: var(--gold);">+502 42595842</a></p>
+                <p>📞 <a href="https://wa.me/50242595842" target="_blank" rel="noopener noreferrer" style="display: inline; color: var(--gold);">+502 42595842</a></p>
                 <p>📧 <a href="mailto:mauromarroquin@hotmail.com" style="display: inline; color: var(--gold);">mauromarroquin@hotmail.com</a></p>
                 <p>📍 Guatemala</p>
             </div>
@@ -1450,6 +1536,36 @@
         function toggleChat() {
             const chatWindow = document.getElementById('chatWindow');
             chatWindow.classList.toggle('active');
+            if (chatWindow.classList.contains('active')) {
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        // Enviar mensaje en chat
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+            const text = input.value.trim();
+            
+            if (text) {
+                // Mensaje del usuario
+                const userMsg = document.createElement('div');
+                userMsg.className = 'message';
+                userMsg.innerHTML = `<div class="message-content" style="margin-left: auto; background: var(--gold); color: var(--dark); border-bottom-right-radius: 5px;">${text}</div>`;
+                messages.appendChild(userMsg);
+                
+                input.value = '';
+                messages.scrollTop = messages.scrollHeight;
+                
+                // Respuesta automática simulada
+                setTimeout(() => {
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'message bot';
+                    botMsg.innerHTML = `<div class="message-content">Gracias por tu mensaje. Un asesor te contactará pronto. ¿Tienes alguna otra pregunta? 😊</div>`;
+                    messages.appendChild(botMsg);
+                    messages.scrollTop = messages.scrollHeight;
+                }, 1000);
+            }
         }
 
         // Carrusel 3D
@@ -1537,15 +1653,23 @@
             if (touchEndX - touchStartX > 50) moveCarousel(-1);
         });
 
+        // Manejar envío de formulario
         function handleSubmit(e) {
             e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            // Aquí puedes agregar la lógica para enviar a un servidor
+            console.log('Formulario enviado:', data);
+            
             alert('¡Gracias por tu mensaje! Te contactaremos pronto. 📩');
             e.target.reset();
         }
 
         updateCarousel();
 
-        // Navegación sticky effect
+        // Navegación sticky effect - YA NO ES NECESARIO PERO LO DEJO POR SI ACASO
         let lastScroll = 0;
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
@@ -1574,6 +1698,16 @@
                 document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
             });
+        });
+
+        // Cerrar chat al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            const chatWidget = document.querySelector('.chat-widget');
+            const chatWindow = document.getElementById('chatWindow');
+            
+            if (!chatWidget.contains(e.target) && chatWindow.classList.contains('active')) {
+                chatWindow.classList.remove('active');
+            }
         });
     </script>
 </body>
