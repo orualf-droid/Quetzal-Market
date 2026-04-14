@@ -57,15 +57,16 @@
             50% { transform: translate(-5%, -5%) rotate(5deg); }
         }
 
-        /* Header Premium */
+        /* Header Premium - YA NO ES STICKY/FIJO (IGUAL QUE INDEX) */
         header {
-            position: sticky;
-            top: 0;
+            /* ELIMINADO: position: sticky y top: 0 */
+            width: 100%;
             z-index: 1000;
-            background: linear-gradient(180deg, rgba(10, 22, 40, 0.95) 0%, rgba(10, 22, 40, 0.8) 100%);
+            background: linear-gradient(180deg, rgba(10, 22, 40, 0.98) 0%, rgba(10, 22, 40, 0.9) 100%);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             padding: 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
         .header-top {
@@ -83,25 +84,48 @@
             gap: 20px;
         }
 
+        /* LOGO CON MISMO EFECTO QUE INDEX - SIEMPRE VISIBLE CON GLOW */
         .logo-wrapper {
             position: relative;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
+        /* Glow dorado SIEMPRE ACTIVO (IGUAL QUE INDEX) */
         .logo-wrapper::before {
             content: '';
             position: absolute;
-            inset: -5px;
-            background: linear-gradient(135deg, var(--gold), var(--green));
+            inset: -8px;
+            background: linear-gradient(135deg, var(--gold), var(--green), var(--gold));
             border-radius: 50%;
-            opacity: 0;
-            filter: blur(15px);
-            transition: opacity 0.3s;
+            opacity: 0.6;
+            filter: blur(20px);
+            animation: glowPulse 3s ease-in-out infinite;
         }
 
-        .logo-wrapper:hover::before {
-            opacity: 0.6;
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        /* Anillo dorado rotativo (IGUAL QUE INDEX) */
+        .logo-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border: 2px solid transparent;
+            border-top-color: var(--gold);
+            border-right-color: var(--gold-light);
+            border-radius: 50%;
+            animation: rotateRing 8s linear infinite;
+        }
+
+        @keyframes rotateRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .logo-img {
@@ -111,12 +135,15 @@
             border-radius: 50%;
             position: relative;
             z-index: 1;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5));
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            background: var(--dark);
+            padding: 5px;
             transition: transform 0.3s;
         }
 
         .logo-wrapper:hover .logo-img {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.05);
         }
 
         .brand-text h1 {
@@ -128,6 +155,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
         }
 
         .brand-text p {
@@ -234,10 +262,32 @@
             background: rgba(212, 175, 55, 0.1);
         }
 
+        /* WhatsApp Button en Header */
+        .header-whatsapp-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            margin-left: 20px;
+        }
+
+        .header-whatsapp-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6);
+        }
+
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 80px 30px 60px;
+            padding: 60px 30px 60px;
             position: relative;
         }
 
@@ -806,11 +856,18 @@
             .header-top {
                 flex-direction: column;
                 gap: 20px;
+                padding: 15px;
             }
 
             .search-container {
                 width: 100%;
                 max-width: 400px;
+            }
+
+            .header-whatsapp-btn {
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
             }
 
             .stats-bar {
@@ -824,6 +881,10 @@
         }
 
         @media (max-width: 600px) {
+            .hero {
+                padding: 40px 20px 40px;
+            }
+
             .hero h2 {
                 font-size: 32px;
             }
@@ -839,6 +900,16 @@
             .filter-btn {
                 padding: 12px 20px;
                 font-size: 13px;
+            }
+
+            /* Logo más pequeño en móviles */
+            .logo-wrapper {
+                width: 60px;
+                height: 60px;
+            }
+
+            .brand-text h1 {
+                font-size: 22px;
             }
         }
 
@@ -860,39 +931,45 @@
             background: var(--gold-light);
         }
     </style>
+<base target="_blank">
 </head>
 <body>
 
     <!-- Fondo animado -->
     <div class="bg-animation"></div>
 
-    <!-- Header Premium -->
+    <!-- Header Premium - YA NO ES STICKY, MISMO EFECTO LOGO QUE INDEX -->
     <header>
         <div class="header-top">
             <div class="logo-section">
                 <div class="logo-wrapper">
-                    <img src="images/logo-quetzal-market.png" alt="Quetzal Market" class="logo-img" onerror="this.src='https://via.placeholder.com/70x70/d4af37/0a1628?text=QM'">
+                    <img src="images/logo-quetzal-market.png" alt="Quetzal Market" class="logo-img" onerror="this.src='https://via.placeholder.com/80x80/d4af37/0a1628?text=QM'; this.onerror=null;">
                 </div>
                 <div class="brand-text">
-                    <h1>QUETZAL MARKET</h1>
-                    <p>Directorio Premium</p>
+                    <h1>Quetzal Market</h1>
+                    <p>Conectamos Negocios</p>
                 </div>
             </div>
 
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Buscar negocios, categorías..." id="searchInput" onkeyup="searchBusiness(this.value)">
-                <button class="search-btn">
-                    <i class="fas fa-search"></i>
-                </button>
+            <div style="display: flex; align-items: center; flex-wrap: wrap; justify-content: center; gap: 10px;">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Buscar negocios, categorías..." id="searchInput" onkeyup="searchBusiness(this.value)">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <a href="https://wa.me/50242595842" class="header-whatsapp-btn" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp"></i> +502 42595842
+                </a>
             </div>
         </div>
 
         <nav class="nav-bar">
-            <a href="#" class="nav-link active">Inicio</a>
-            <a href="#" class="nav-link">Categorías</a>
-            <a href="#" class="nav-link">Destacados</a>
-            <a href="#" class="nav-link">Nuevos</a>
-            <a href="#" class="nav-link">Contacto</a>
+            <a href="index.html" class="nav-link active">Inicio</a>
+            <a href="index.html#planes" class="nav-link">Planes</a>
+            <a href="index.html#nosotros" class="nav-link">Nosotros</a>
+            <a href="index.html#faq" class="nav-link">FAQ</a>
+            <a href="index.html#contacto" class="nav-link">Contacto</a>
         </nav>
     </header>
 
@@ -981,15 +1058,15 @@
                 <div class="social-section">
                     <div class="social-label">Síguenos</div>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/TallerdemotosChoys?rdid=44jGxgxtncFo825o#" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-btn website" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://www.facebook.com/TallerdemotosChoys?rdid=44jGxgxtncFo825o#" class="social-btn facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" class="social-btn instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-btn website" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
 
                 <div class="whatsapp-section">
-                    <a href="https://wa.me/50247487191?text=Hola%20Don%20Choy,%20vi%20su%20negocio%20en%20Quetzal%20Market" class="whatsapp-btn" target="_blank">
+                    <a href="https://wa.me/50247487191?text=Hola%20Don%20Choy,%20vi%20su%20negocio%20en%20Quetzal%20Market" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <div class="whatsapp-icon-wrapper">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1041,15 +1118,15 @@
                 <div class="social-section">
                     <div class="social-label">Síguenos</div>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61587288796306&rdid=lqMmKqbsOdhUp9Sp#" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-btn website" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61587288796306&rdid=lqMmKqbsOdhUp9Sp#" class="social-btn facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" class="social-btn instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-btn website" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
 
                 <div class="whatsapp-section">
-                    <a href="https://wa.me/50242394887?text=Hola%20El%20Carpinteria%20San%20San%20Jose,%20vi%20su%20negocio%20en%20Quetzal%20Market" class="whatsapp-btn" target="_blank">
+                    <a href="https://wa.me/50242394887?text=Hola%20El%20Carpinteria%20San%20San%20Jose,%20vi%20su%20negocio%20en%20Quetzal%20Market" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <div class="whatsapp-icon-wrapper">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1101,15 +1178,15 @@
                 <div class="social-section">
                     <div class="social-label">Síguenos</div>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=100085132446967&rdid=7IsOHMFxEBNhBiUy#" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-btn website" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=100085132446967&rdid=7IsOHMFxEBNhBiUy#" class="social-btn facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" class="social-btn instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-btn website" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
 
                 <div class="whatsapp-section">
-                    <a href="https://wa.me/50248298733?text=Hola%20Panadería%20San%20Antonio,%20quiero%20ordenar%20pan" class="whatsapp-btn" target="_blank">
+                    <a href="https://wa.me/50248298733?text=Hola%20Panadería%20San%20Antonio,%20quiero%20ordenar%20pan" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <div class="whatsapp-icon-wrapper">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1161,15 +1238,15 @@
                 <div class="social-section">
                     <div class="social-label">Síguenos</div>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/FloristeriaJanys?rdid=t44pM3oQm19GQkW7#" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/floristeriajanys?igsh=bHoxemhscXEwYjR0" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://vm.tiktok.com/ZS9LUC2jSXyU6-c4Al2/" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-btn website" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://www.facebook.com/FloristeriaJanys?rdid=t44pM3oQm19GQkW7#" class="social-btn facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/floristeriajanys?igsh=bHoxemhscXEwYjR0" class="social-btn instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://vm.tiktok.com/ZS9LUC2jSXyU6-c4Al2/" class="social-btn tiktok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-btn website" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
 
                 <div class="whatsapp-section">
-                    <a href="https://wa.me/50259591818?text=Hola%20Floristeria%20Janys%20vi,%20tu%20anuncio%20en%20Quetzal%20Market" class="whatsapp-btn" target="_blank">
+                    <a href="https://wa.me/50259591818?text=Hola%20Floristeria%20Janys%20vi,%20tu%20anuncio%20en%20Quetzal%20Market" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <div class="whatsapp-icon-wrapper">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1222,15 +1299,15 @@
                 <div class="social-section">
                     <div class="social-label">Síguenos</div>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=100063553629873&rdid=KKmcz9LrAz7xJhra#" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/c_amis.gt?utm_source=qr&igsh=OG82ajk3enZobmpn" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-btn website" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=100063553629873&rdid=KKmcz9LrAz7xJhra#" class="social-btn facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/c_amis.gt?utm_source=qr&igsh=OG82ajk3enZobmpn" class="social-btn instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-btn website" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
 
                 <div class="whatsapp-section">
-                    <a href="https://wa.me/50235675985?text=Hola%20Camis%20vi%20tu%20anuncio%20en%20Quetzal%20Market" class="whatsapp-btn" target="_blank">
+                    <a href="https://wa.me/50235675985?text=Hola%20Camis%20vi%20tu%20anuncio%20en%20Quetzal%20Market" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <div class="whatsapp-icon-wrapper">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1282,15 +1359,15 @@
                 <div class="social-section">
                     <div class="social-label">Síguenos</div>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/mecanica.cabrera.2025?rdid=mTJeeZx2Z0L5dEAr#" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-btn website" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://www.facebook.com/mecanica.cabrera.2025?rdid=mTJeeZx2Z0L5dEAr#" class="social-btn facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" class="social-btn instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-btn website" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
 
                 <div class="whatsapp-section">
-                    <a href="https://wa.me/50238173649?text=Hola%20Ferretería%20El%20Constructor,%20necesito%20cotización" class="whatsapp-btn" target="_blank">
+                    <a href="https://wa.me/50238173649?text=Hola%20Ferretería%20El%20Constructor,%20necesito%20cotización" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <div class="whatsapp-icon-wrapper">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1342,15 +1419,15 @@
                 <div class="social-section">
                     <div class="social-label">Síguenos</div>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/FloristeriaJanys?rdid=ABRoqqW8BQVtWXj2&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18Yw1nEVdK%2F#" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/floristeriajanys?igsh=bHoxemhscXEwYjR0" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://vm.tiktok.com/ZS9LUC2jSXyU6-c4Al2/" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-btn website" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://www.facebook.com/FloristeriaJanys?rdid=ABRoqqW8BQVtWXj2&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18Yw1nEVdK%2F#" class="social-btn facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/floristeriajanys?igsh=bHoxemhscXEwYjR0" class="social-btn instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://vm.tiktok.com/ZS9LUC2jSXyU6-c4Al2/" class="social-btn tiktok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-btn website" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
 
                 <div class="whatsapp-section">
-                    <a href="https://wa.me/50259591818?text=Hola%20Tech%20World,%20mi%20celular%20tiene%20problemas" class="whatsapp-btn" target="_blank">
+                    <a href="https://wa.me/50259591818?text=Hola%20Tech%20World,%20mi%20celular%20tiene%20problemas" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <div class="whatsapp-icon-wrapper">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1402,15 +1479,15 @@
                 <div class="social-section">
                     <div class="social-label">Síguenos</div>
                     <div class="social-links">
-                        <a href="https://facebook.com" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-btn website" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://facebook.com" class="social-btn facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" class="social-btn instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-btn website" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
 
                 <div class="whatsapp-section">
-                    <a href="https://wa.me/50242595842?text=Hola%20Barber%20Shop,%20quiero%20agendar%20cita" class="whatsapp-btn" target="_blank">
+                    <a href="https://wa.me/50242595842?text=Hola%20Barber%20Shop,%20quiero%20agendar%20cita" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <div class="whatsapp-icon-wrapper">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1462,15 +1539,15 @@
                 <div class="social-section">
                     <div class="social-label">Síguenos</div>
                     <div class="social-links">
-                        <a href="https://facebook.com" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-btn website" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://facebook.com" class="social-btn facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" class="social-btn instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-btn website" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
 
                 <div class="whatsapp-section">
-                    <a href="https://wa.me/50242595842?text=Hola%20Taxi%20Seguro,%20necesito%20un%20taxi%20urgente" class="whatsapp-btn" target="_blank">
+                    <a href="https://wa.me/50242595842?text=Hola%20Taxi%20Seguro,%20necesito%20un%20taxi%20urgente" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <div class="whatsapp-icon-wrapper">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1522,15 +1599,15 @@
                 <div class="social-section">
                     <div class="social-label">Síguenos</div>
                     <div class="social-links">
-                        <a href="https://facebook.com" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-btn website" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="https://facebook.com" class="social-btn facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" class="social-btn instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-btn website" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
 
                 <div class="whatsapp-section">
-                    <a href="https://wa.me/50242595842?text=Hola%20Consultores,%20necesito%20asesoría%20contable" class="whatsapp-btn" target="_blank">
+                    <a href="https://wa.me/50242595842?text=Hola%20Consultores,%20necesito%20asesoría%20contable" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <div class="whatsapp-icon-wrapper">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -1565,10 +1642,10 @@
             <p class="footer-tagline">Conectamos Negocios, Crecemos Juntos</p>
             
             <div class="social-footer">
-                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
-                <a href="https://wa.me/50242595842" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                <a href="https://wa.me/50242595842" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
             </div>
             
             <p class="copyright">
@@ -1614,16 +1691,16 @@
         }
 
         // Búsqueda en tiempo real
-        function searchBusiness(query) {
+         searchBusiness(query) {
             const cards = document.querySelectorAll('.business-card');
             const searchTerm = query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-            
+
             cards.forEach(card => {
-                const name = card.getAttribute('data-name');
-                const description = card.querySelector('.business-description').textContent.toLowerCase();
+                const name = card.getAttribute('data-name').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
                 const category = card.getAttribute('data-category').toLowerCase();
-                
-                if (name.includes(searchTerm) || description.includes(searchTerm) || category.includes(searchTerm)) {
+                const description = card.querySelector('.business-description').textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+                if (name.includes(searchTerm) || category.includes(searchTerm) || description.includes(searchTerm)) {
                     card.style.display = 'block';
                     setTimeout(() => {
                         card.style.opacity = '1';
@@ -1637,27 +1714,191 @@
                     }, 300);
                 }
             });
+
+            // Mostrar mensaje si no hay resultados
+            updateNoResultsMessage();
         }
 
-        // Guardar en favoritos (simulado)
-        document.querySelectorAll('.action-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const icon = this.querySelector('i');
-                if (icon.classList.contains('far')) {
-                    icon.classList.remove('far');
-                    icon.classList.add('fas');
-                    this.style.background = 'var(--gold)';
-                    this.style.color = 'var(--dark)';
-                } else if (icon.classList.contains('fa-bookmark')) {
-                    icon.classList.remove('fas');
-                    icon.classList.add('far');
-                    this.style.background = 'rgba(255, 255, 255, 0.1)';
-                    this.style.color = '#fff';
+        // Función para mostrar mensaje cuando no hay resultados
+        function updateNoResultsMessage() {
+            const visibleCards = document.querySelectorAll('.business-card[style*="block"], .business-card:not([style*="none"])');
+            const grid = document.getElementById('businessGrid');
+
+            // Remover mensaje anterior si existe
+            const existingMessage = document.querySelector('.no-results-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+
+            // Si no hay tarjetas visibles, mostrar mensaje
+            if (visibleCards.length === 0) {
+                const message = document.createElement('div');
+                message.className = 'no-results-message';
+                message.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.6);">
+                        <i class="fas fa-search" style="font-size: 48px; color: var(--gold); margin-bottom: 20px; display: block;"></i>
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; color: #fff; margin-bottom: 10px;">No se encontraron resultados</h3>
+                        <p>Intenta con otros términos de búsqueda o categorías</p>
+                    </div>
+                `;
+                grid.appendChild(message);
+            }
+        }
+
+        // Función para compartir negocio
+        function shareBusiness(businessName) {
+            if (navigator.share) {
+                navigator.share({
+                    title: businessName,
+                    text: `Mira este negocio en Quetzal Market: ${businessName}`,
+                    url: window.location.href
+                }).catch(err => console.log('Error sharing:', err));
+            } else {
+                // Fallback: copiar al portapapeles
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    showNotification('¡Enlace copiado al portapapeles!');
+                });
+            }
+        }
+
+        // Función para guardar favoritos (usando localStorage)
+        function toggleFavorite(businessName, btn) {
+            let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const index = favorites.indexOf(businessName);
+
+            if (index > -1) {
+                favorites.splice(index, 1);
+                btn.innerHTML = '<i class="far fa-bookmark"></i>';
+                showNotification('Eliminado de favoritos');
+            } else {
+                favorites.push(businessName);
+                btn.innerHTML = '<i class="fas fa-bookmark"></i>';
+                showNotification('¡Guardado en favoritos!');
+            }
+
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+        }
+
+        // Mostrar notificación
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+                color: var(--dark);
+                padding: 15px 30px;
+                border-radius: 50px;
+                font-weight: 600;
+                box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4);
+                z-index: 9999;
+                animation: slideUp 0.3s ease-out;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideDown 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 2500);
+        }
+
+        // Agregar event listeners a los botones de acción
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar botones de compartir
+            document.querySelectorAll('.action-btn').forEach((btn, index) => {
+                const card = btn.closest('.business-card');
+                const businessName = card.getAttribute('data-name');
+
+                if (btn.querySelector('.fa-share-alt')) {
+                    btn.addEventListener('click', () => shareBusiness(businessName));
+                }
+
+                if (btn.querySelector('.fa-bookmark')) {
+                    // Verificar si está en favoritos
+                    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+                    if (favorites.includes(businessName)) {
+                        btn.innerHTML = '<i class="fas fa-bookmark"></i>';
+                    }
+                    btn.addEventListener('click', () => toggleFavorite(businessName, btn));
                 }
             });
-        });
-    </script>
 
+            // Animación de entrada para las tarjetas
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.business-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Animación para las estadísticas (contador)
+            animateCounters();
+        });
+
+        // Animación de contadores
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+
+            counters.forEach(counter => {
+                const target = counter.textContent;
+                const numericValue = parseInt(target.replace(/\D/g, ''));
+                const suffix = target.replace(/[0-9]/g, '');
+                let current = 0;
+                const increment = numericValue / 50;
+
+                const updateCounter = () => {
+                    if (current < numericValue) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current) + suffix;
+                        setTimeout(updateCounter, 30);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                // Usar IntersectionObserver para iniciar cuando sea visible
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        updateCounter();
+                        observer.disconnect();
+                    }
+                });
+
+                observer.observe(counter);
+            });
+        }
+
+        // Agregar estilos CSS adicionales para animaciones
+        const additionalStyles = document.createElement('style');
+        additionalStyles.textContent = `
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+
+            @keyframes slideDown {
+                from { opacity: 1; transform: translateX(-50%) translateY(0); }
+                to { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            }
+
+            .no-results-message {
+                grid-column: 1 / -1;
+            }
+        `;
+        document.head.appendChild(additionalStyles);
+    </script>
 </body>
 </html>
