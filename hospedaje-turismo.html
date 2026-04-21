@@ -876,8 +876,8 @@
 
             .business-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-                padding: 0 15px;
+                gap: 15px;
+                padding: 0 12px;
             }
 
             .business-card:hover {
@@ -885,7 +885,7 @@
             }
 
             .card-content {
-                padding: 20px;
+                padding: 15px;
             }
 
             .business-name {
@@ -1011,26 +1011,41 @@
             }
 
             .whatsapp-btn {
-                padding: 10px 12px;
+                padding: 10px 10px;
                 border-radius: 12px;
-                gap: 10px;
+                gap: 8px;
             }
 
             .whatsapp-icon-wrapper {
-                width: 34px;
-                height: 34px;
-                font-size: 16px;
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+                flex-shrink: 0;
+            }
+
+            .whatsapp-info {
+                min-width: 0;
+                overflow: hidden;
             }
 
             .whatsapp-label {
-                font-size: 9px;
-            }
-
-            .whatsapp-number {
-                font-size: 13px;
+                font-size: 8px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+            }
+
+            .whatsapp-number {
+                font-size: 11px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                letter-spacing: -0.3px;
+            }
+
+            .whatsapp-arrow {
+                font-size: 14px;
+                flex-shrink: 0;
             }
 
             .card-image-wrapper {
@@ -1079,7 +1094,39 @@
             }
         }
 
-        /* Scrollbar personalizada */
+        
+        /* Extra small screens - ensure WhatsApp fits */
+        @media (max-width: 380px) {
+            .whatsapp-number {
+                font-size: 10px;
+                letter-spacing: -0.5px;
+            }
+
+            .whatsapp-label {
+                font-size: 7px;
+            }
+
+            .whatsapp-btn {
+                padding: 8px 8px;
+                gap: 6px;
+            }
+
+            .whatsapp-icon-wrapper {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+
+            .business-grid {
+                gap: 10px;
+                padding: 0 8px;
+            }
+
+            .card-content {
+                padding: 12px;
+            }
+        }
+/* Scrollbar personalizada */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -1100,18 +1147,28 @@
         /* ===== SCROLL REVEAL ANIMATIONS ===== */
         .reveal {
             opacity: 0;
-            transform: translateY(60px);
+            transform: translateX(-60px);
             transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
+        }
+
+        /* Cards even: from left, odd: from right */
+        .business-card.reveal:nth-child(even) {
+            transform: translateX(60px);
+            transition-delay: calc(var(--reveal-index, 0) * 0.08s);
+        }
+
+        .business-card.reveal:nth-child(even).active {
+            transform: translateX(0);
         }
 
         /* Staggered delays for cards */
         .business-card.reveal {
-            transition-delay: calc(var(--reveal-index, 0) * 0.1s);
+            transition-delay: calc(var(--reveal-index, 0) * 0.08s);
         }
 
         /* Different animation types */
