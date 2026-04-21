@@ -1036,11 +1036,18 @@
             }
 
             .whatsapp-number {
-                font-size: 11px;
+                font-size: 12px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                letter-spacing: -0.3px;
+                letter-spacing: -0.2px;
+            }
+
+            .whatsapp-number .full-number {
+                display: none;
+            }
+            .whatsapp-number .short-number {
+                display: inline;
             }
 
             .whatsapp-arrow {
@@ -1098,8 +1105,15 @@
         /* Extra small screens - ensure WhatsApp fits */
         @media (max-width: 380px) {
             .whatsapp-number {
-                font-size: 10px;
-                letter-spacing: -0.5px;
+                font-size: 11px;
+                letter-spacing: -0.3px;
+            }
+
+            .whatsapp-number .full-number {
+                display: none;
+            }
+            .whatsapp-number .short-number {
+                display: inline;
             }
 
             .whatsapp-label {
@@ -1248,6 +1262,14 @@
             min-width: 0;
             overflow: hidden;
         }
+
+        /* WhatsApp number display toggle */
+        .whatsapp-number .full-number {
+            display: inline;
+        }
+        .whatsapp-number .short-number {
+            display: none;
+        }
 </style>
 <base target="_blank">
 <base target="_blank">
@@ -1391,7 +1413,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Contactar</div>
-                            <div class="whatsapp-number">+502 33606314</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 33606314</span><span class="short-number">3360-6314</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -1451,7 +1473,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Solicitar Cotizacion</div>
-                            <div class="whatsapp-number">+502 4239-4887</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 4239-4887</span><span class="short-number">4239-4887</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -1511,7 +1533,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Ordenar Ahora</div>
-                            <div class="whatsapp-number">+502 4829-8733</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 4829-8733</span><span class="short-number">4829-8733</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -1571,7 +1593,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Consultar Disponibilidad</div>
-                            <div class="whatsapp-number">+502 5959-1818</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 5959-1818</span><span class="short-number">5959-1818</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -1632,7 +1654,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Ver Catálogo</div>
-                            <div class="whatsapp-number">+502 3567-5985</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 3567-5985</span><span class="short-number">3567-5985</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -1692,7 +1714,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Solicitar Cotización</div>
-                            <div class="whatsapp-number">+502 3817-3649</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 3817-3649</span><span class="short-number">3817-3649</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -1752,7 +1774,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Contactar</div>
-                            <div class="whatsapp-number">+502 4748-7191</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 4748-7191</span><span class="short-number">4748-7191</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -1812,7 +1834,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Cotizar precios</div>
-                            <div class="whatsapp-number">+502 4194-3261</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 4194-3261</span><span class="short-number">4194-3261</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -1872,7 +1894,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Solicitar Informacion</div>
-                            <div class="whatsapp-number">+502 4527-5280</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 4527-5280</span><span class="short-number">4527-5280</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -1932,7 +1954,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Consulta</div>
-                            <div class="whatsapp-number">+502 5699-6813</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 5699-6813</span><span class="short-number">5699-6813</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -1992,7 +2014,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Más Información</div>
-                            <div class="whatsapp-number">+502 4983-0010</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 4983-0010</span><span class="short-number">4983-0010</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -2052,7 +2074,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Más Información</div>
-                            <div class="whatsapp-number">+502 5908-6912</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 5908-6912</span><span class="short-number">5908-6912</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -2112,7 +2134,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Más Información</div>
-                            <div class="whatsapp-number">+502 4231-4484</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 4231-4484</span><span class="short-number">4231-4484</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -2172,7 +2194,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Más Información</div>
-                            <div class="whatsapp-number">+502 4259-5842</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 4259-5842</span><span class="short-number">4259-5842</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
@@ -2232,7 +2254,7 @@
                         </div>
                         <div class="whatsapp-info">
                             <div class="whatsapp-label">Más Información</div>
-                            <div class="whatsapp-number">+502 4259-5842</div>
+                            <div class="whatsapp-number"><span class="full-number">+502 4259-5842</span><span class="short-number">4259-5842</span></div>
                         </div>
                         <i class="fas fa-arrow-right whatsapp-arrow"></i>
                     </a>
