@@ -1028,6 +1028,9 @@
 
             .whatsapp-number {
                 font-size: 13px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .card-image-wrapper {
@@ -1093,7 +1096,102 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--gold-light);
         }
-    </style>
+    
+        /* ===== SCROLL REVEAL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered delays for cards */
+        .business-card.reveal {
+            transition-delay: calc(var(--reveal-index, 0) * 0.1s);
+        }
+
+        /* Different animation types */
+        .reveal-fade {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .reveal-fade.active {
+            opacity: 1;
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Filters section reveal */
+        .filters-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+        .filters-section.reveal-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer reveal */
+        footer {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+        footer.reveal-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== WHATSAPP NUMBER FIX - SINGLE LINE ===== */
+        .whatsapp-number {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .whatsapp-btn {
+            min-width: 0;
+        }
+
+        .whatsapp-info {
+            min-width: 0;
+            overflow: hidden;
+        }
+</style>
 <base target="_blank">
 <base target="_blank">
 </head>
@@ -1163,7 +1261,7 @@
     </section>
 
     <!-- Filtros -->
-    <section class="filters-section">
+    <section class="filters-section" id="filtersSection">
         <div class="filters-container">
             <button class="filter-btn active" onclick="filterBusiness('all')">
                 <i class="fas fa-th-large"></i>
@@ -1196,7 +1294,7 @@
     <div class="business-grid" id="businessGrid">
 
         <!-- Negocio 1: Tienda de Abarrotes -->
-        <article class="business-card" data-category="retail" data-name="Hotel Posada Magdalena">
+        <article class="business-card reveal" style="--reveal-index: 0;" data-category="retail" data-name="Hotel Posada Magdalena">
             <div class="card-image-wrapper">
                 <img src="images/Magdalena.jpg" alt="Hotel Posada Magdalena" class="card-image">
                 <div class="card-overlay">
@@ -1256,7 +1354,7 @@
         </article>
 
         <!-- Negocio 2: Restaurante -->
-        <article class="business-card" data-category="carpinteria" data-name="carpinteria San Jose">
+        <article class="business-card reveal" style="--reveal-index: 1;" data-category="carpinteria" data-name="carpinteria San Jose">
             <div class="card-image-wrapper">
                 <img src="images/Jose.jpg" alt="Carpinteria" class="card-image">
                 <div class="card-overlay">
@@ -1316,7 +1414,7 @@
         </article>
 
         <!-- Negocio 3: Panadería -->
-        <article class="business-card" data-category="comida" data-name="Panadería San Antonio">
+        <article class="business-card reveal" style="--reveal-index: 2;" data-category="comida" data-name="Panadería San Antonio">
             <div class="card-image-wrapper">
                 <img src="images/Antonio.jpg" alt="Panadería" class="card-image">
                 <div class="card-overlay">
@@ -1376,7 +1474,7 @@
         </article>
 
         <!-- Negocio 4: Farmacia -->
-        <article class="business-card" data-category="salud" data-name="farmacia la bendición">
+        <article class="business-card reveal" style="--reveal-index: 3;" data-category="salud" data-name="farmacia la bendición">
             <div class="card-image-wrapper">
                 <img src="images/Janys.jpg" alt="Floristeria" class="card-image">
                 <div class="card-overlay">
@@ -1436,7 +1534,7 @@
         </article>
 
         <!-- Negocio 5: Ropa y Calzado -->
-        <article class="business-card" data-category="retail" data-name="Camis">
+        <article class="business-card reveal" style="--reveal-index: 4;" data-category="retail" data-name="Camis">
             <div class="card-image-wrapper">
                 <img src="images/Camis.jpg" alt="Ropa" class="card-image">
                 <div class="card-overlay">
@@ -1497,7 +1595,7 @@
         </article>
 
         <!-- Negocio 6: Ferretería -->
-        <article class="business-card" data-category="retail" data-name="Mecánica Cabrera">
+        <article class="business-card reveal" style="--reveal-index: 5;" data-category="retail" data-name="Mecánica Cabrera">
             <div class="card-image-wrapper">
                 <img src="images/Cabrera.jpg" alt="Mecanica" class="card-image">
                 <div class="card-overlay">
@@ -1557,7 +1655,7 @@
         </article>
 
         <!-- Negocio 7: Tecnología -->
-                <article class="business-card" data-category="retail" data-name="Taller de Motos Choys">
+                <article class="business-card reveal" style="--reveal-index: 6;" data-category="retail" data-name="Taller de Motos Choys">
             <div class="card-image-wrapper">
                 <img src="images/Choy.jpg" alt="Taller de Motos Choys" class="card-image">
                 <div class="card-overlay">
@@ -1617,7 +1715,7 @@
         </article>
 
         <!-- Negocio 8: Barbería -->
-        <article class="business-card" data-category="servicios" data-name="ferreteria los angeles">
+        <article class="business-card reveal" style="--reveal-index: 7;" data-category="servicios" data-name="ferreteria los angeles">
             <div class="card-image-wrapper">
                 <img src="images/Angeles.jpg" alt="Ferrería" class="card-image">
                 <div class="card-overlay">
@@ -1677,7 +1775,7 @@
         </article>
 
         <!-- Negocio 9: Transporte -->
-        <article class="business-card" data-category="servicios" data-name="Ferreteria Cofeysa">
+        <article class="business-card reveal" style="--reveal-index: 8;" data-category="servicios" data-name="Ferreteria Cofeysa">
             <div class="card-image-wrapper">
                 <img src="images/Cofeysa.jpg" alt="Ferreteria" class="card-image">
                 <div class="card-overlay">
@@ -1737,7 +1835,7 @@
         </article>
 
         <!-- Negocio 10: Servicios Profesionales -->
-        <article class="business-card" data-category="computacion" data-name="Compu-Sistemas Sololá">
+        <article class="business-card reveal" style="--reveal-index: 9;" data-category="computacion" data-name="Compu-Sistemas Sololá">
             <div class="card-image-wrapper">
                 <img src="images/Sistemas.png" alt="Servicios Profesionales" class="card-image">
                 <div class="card-overlay">
@@ -1797,7 +1895,7 @@
         </article>
 
         <!-- Negocio 11: Espacio Disponible -->
-        <article class="business-card" data-category="servicios" data-name="TRANSPORTES ESMERALDA">
+        <article class="business-card reveal" style="--reveal-index: 10;" data-category="servicios" data-name="TRANSPORTES ESMERALDA">
             <div class="card-image-wrapper">
                 <img src="images/Esmeralda.jpeg" alt="TRANSPORTES ESMERALDA" class="card-image" onerror="this.src='https://via.placeholder.com/400x220/1a1a2e/d4af37?text=Espacio+Disponible'; this.onerror=null;">
                 <div class="card-overlay">
@@ -1857,7 +1955,7 @@
         </article>
 
         <!-- Negocio 12: Espacio Disponible -->
-        <article class="business-card" data-category="Transportes Rebulí" data-name="Negocio 12">
+        <article class="business-card reveal" style="--reveal-index: 11;" data-category="Transportes Rebulí" data-name="Negocio 12">
             <div class="card-image-wrapper">
                 <img src="images/Rebuli.jpeg" alt="" class="card-image" onerror="this.src='https://via.placeholder.com/400x220/1a1a2e/d4af37?text=Espacio+Disponible'; this.onerror=null;">
                 <div class="card-overlay">
@@ -1917,7 +2015,7 @@
         </article>
 
         <!-- Negocio 13: Espacio Disponible -->
-        <article class="business-card" data-category="servicios" data-name="Negocio 13">
+        <article class="business-card reveal" style="--reveal-index: 12;" data-category="servicios" data-name="Negocio 13">
             <div class="card-image-wrapper">
                 <img src="images/Cofrades.jpeg" alt="Hotel y Restaurante Los Cofrades" class="card-image" onerror="this.src='https://via.placeholder.com/400x220/1a1a2e/d4af37?text=Espacio+Disponible'; this.onerror=null;">
                 <div class="card-overlay">
@@ -1977,7 +2075,7 @@
         </article>
 
         <!-- Negocio 14: Espacio Disponible -->
-        <article class="business-card" data-category="servicios" data-name="Negocio 14">
+        <article class="business-card reveal" style="--reveal-index: 13;" data-category="servicios" data-name="Negocio 14">
             <div class="card-image-wrapper">
                 <img src="images/placeholder.jpg" alt="Espacio Disponible" class="card-image" onerror="this.src='https://via.placeholder.com/400x220/1a1a2e/d4af37?text=Espacio+Disponible'; this.onerror=null;">
                 <div class="card-overlay">
@@ -2037,7 +2135,7 @@
         </article>
 
         <!-- Negocio 15: Espacio Disponible -->
-        <article class="business-card" data-category="servicios" data-name="Negocio 15">
+        <article class="business-card reveal" style="--reveal-index: 14;" data-category="servicios" data-name="Negocio 15">
             <div class="card-image-wrapper">
                 <img src="images/placeholder.jpg" alt="Espacio Disponible" class="card-image" onerror="this.src='https://via.placeholder.com/400x220/1a1a2e/d4af37?text=Espacio+Disponible'; this.onerror=null;">
                 <div class="card-overlay">
@@ -2099,7 +2197,7 @@
     </div>
 
     <!-- Footer Premium -->
-    <footer>
+    <footer id="mainFooter">
         <div class="footer-content">
             <img src="images/logo-quetzal-market.png" alt="Quetzal Market" class="footer-logo" onerror="this.style.display='none'">
             <h3 class="footer-text">QUETZAL MARKET</h3>
@@ -2124,7 +2222,7 @@
         function filterBusiness(category) {
             const cards = document.querySelectorAll('.business-card');
             const buttons = document.querySelectorAll('.filter-btn');
-            
+
             // Actualizar botones activos
             buttons.forEach(btn => {
                 btn.classList.remove('active');
@@ -2137,12 +2235,15 @@
             // Filtrar tarjetas
             cards.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
-                
+
                 if (category === 'all' || cardCategory === category) {
                     card.style.display = 'block';
+                    // Reset reveal for re-animation
+                    card.classList.remove('active');
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
+                        card.classList.add('active');
                     }, 50);
                 } else {
                     card.style.opacity = '0';
@@ -2155,22 +2256,23 @@
         }
 
         // Búsqueda en tiempo real
-         searchBusiness(query) {
+        function searchBusiness(query) {
             const cards = document.querySelectorAll('.business-card');
-            const searchTerm = query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            const searchTerm = query.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
             cards.forEach(card => {
-                const name = card.getAttribute('data-name').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                const name = card.getAttribute('data-name').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
                 const category = card.getAttribute('data-category').toLowerCase();
-                const description = card.querySelector('.business-description').textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                const description = card.querySelector('.business-description').textContent.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
                 if (name.includes(searchTerm) || category.includes(searchTerm) || description.includes(searchTerm)) {
                     card.style.display = 'block';
+                    card.classList.remove('active');
                     setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
+                        card.classList.add('active');
                     }, 50);
                 } else {
+                    card.classList.remove('active');
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
                     setTimeout(() => {
@@ -2270,8 +2372,60 @@
             }, 2500);
         }
 
-        // Agregar event listeners a los botones de acción
+        // ===== SCROLL REVEAL FUNCTIONALITY =====
+        function initScrollReveal() {
+            // Reveal elements on scroll
+            const revealElements = document.querySelectorAll('.reveal, .reveal-fade, .reveal-left, .reveal-right, .reveal-scale');
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optionally unobserve after reveal
+                        // revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // Reveal filters section
+            const filtersSection = document.getElementById('filtersSection');
+            if (filtersSection) {
+                const filtersObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('reveal-active');
+                        }
+                    });
+                }, { threshold: 0.2 });
+                filtersObserver.observe(filtersSection);
+            }
+
+            // Reveal footer
+            const footer = document.getElementById('mainFooter');
+            if (footer) {
+                const footerObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('reveal-active');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                footerObserver.observe(footer);
+            }
+        }
+
+        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize scroll reveal
+            initScrollReveal();
+
             // Configurar botones de compartir
             document.querySelectorAll('.action-btn').forEach((btn, index) => {
                 const card = btn.closest('.business-card');
@@ -2291,24 +2445,7 @@
                 }
             });
 
-            // Animación de entrada para las tarjetas
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.business-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
-            });
-
-            // Animación para las estadísticas (contador)
+            // Animación de contadores
             animateCounters();
         });
 
